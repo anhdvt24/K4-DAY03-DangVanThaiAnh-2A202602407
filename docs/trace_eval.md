@@ -245,8 +245,13 @@ python src/app.py --all
 
 ### 3.4. Kết quả đẩy Repo nộp bài
 
-- [ ] **Đã Commit và Push mã nguồn thành công lên GitHub cá nhân.**
-  - Workspace hiện tại **chưa phải git repo** (đã kiểm tra `git status` ở đầu phiên). Cần `git init` → commit → tạo remote trên GitHub cá nhân → push trước khi nộp bài.
+- [x] **Đã Commit và Push mã nguồn thành công lên GitHub cá nhân.**
+  - **Repo URL:** https://github.com/anhdvt24/K4-DAY03-DangVanThaiAnh-2A202602407
+  - **Tên repo đúng chuẩn:** `K4-DAY03-DangVanThaiAnh-2A202602407` (theo format `K4-DAY03-HoVaTen-MSSV`).
+  - **Trạng thái GitHub:** Public (đã verify bằng `git ls-remote origin HEAD` → trả về commit hash `95ce3bee4f69f076e31b216c7f961b8513543a69`).
+  - **Lịch sử commit:** 1 commit "Initial commit" gồm 19 files / 2352 insertions (toàn bộ source code + docs + config).
+  - **Working tree:** `nothing to commit, working tree clean` — local đã đồng bộ 100% với origin/main.
+  - **Bảo mật:** File `.env` (chứa API key thật) đã được `.gitignore` loại trừ khỏi commit; chỉ `.env.example` được push lên.
 
 ---
 
