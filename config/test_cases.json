@@ -1,0 +1,37 @@
+[
+  {
+    "id": "TC01",
+    "type": "direct_query",
+    "question": "Trợ lý có thể giải thích tổng quan quy trình điều phối cứu hộ sự cố trạm sạc xe điện không?",
+    "expected_behavior": "Agent trả lời trực tiếp từ System Prompt (không có station_id cụ thể, không có từ khóa cứu hộ / kỹ thuật viên / tạo yêu cầu), không gọi bất kỳ Tool nào, không có Action.",
+    "complexity": "Low"
+  },
+  {
+    "id": "TC02",
+    "type": "single_tool_query",
+    "question": "Trạm sạc ST001 hiện đang gặp sự cố gì? Cho biết trạng thái và mức độ lỗi chi tiết.",
+    "expected_behavior": "Agent nhận diện tra cứu, tự động phát sinh Tool Call 'get_station_status' với station_id='ST001' và tổng hợp Final Answer từ Observation (state / severity / error_code / station_name / location).",
+    "complexity": "Medium"
+  },
+  {
+    "id": "TC03",
+    "type": "rescue_booking",
+    "question": "Tạo yêu cầu cứu hộ cho trạm ST001, phân công kỹ thuật viên TECH003 với mức độ HIGH.",
+    "expected_behavior": "Agent tự động phát sinh Tool Call 'create_rescue_request' với station_id='ST001', technician_id='TECH003', severity='HIGH' và nhận về rescue_id từ MCP Server để đưa vào Final Answer.",
+    "complexity": "Medium"
+  },
+  {
+    "id": "TC04",
+    "type": "multi_step_reasoning",
+    "question": "Trạm ST001 đang gặp sự cố mức HIGH, hãy tìm giúp tôi kỹ thuật viên khả dụng phù hợp để xử lý.",
+    "expected_behavior": "Agent gọi Tool 'find_available_technician' với station_id='ST001', required_severity='HIGH', nhận Observation (danh sách candidates lọc theo skill EV_CHARGER + distance_km) và tổng hợp Final Answer đề xuất kỹ thuật viên tối ưu. Với LLM thật, có thể chain thêm 'create_rescue_request' ở step tiếp theo; với Mock offline, test case dừng ở 1 tool_call + Final Answer.",
+    "complexity": "High"
+  },
+  {
+    "id": "TC05",
+    "type": "edge_case_handling",
+    "question": "Kiểm tra trạng thái trạm ST999 — trạm này có tồn tại trong hệ thống không?",
+    "expected_behavior": "Agent gọi 'get_station_status' với station_id='ST999', nhận về JSON-RPC error (status=NOT_FOUND) và đưa ra Final Answer thân thiện, KHÔNG tự bịa đặt dữ liệu (không gán state / severity giả).",
+    "complexity": "Medium"
+  }
+]
